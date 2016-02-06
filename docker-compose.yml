@@ -5,6 +5,7 @@ data:
     - /mnt/storage/tmp:/mnt/tmp:rw
     - /mnt/storage/downloads:/mnt/downloads:rw
     - /media/nas:/mnt/nas:rw
+    - /home/kenyonj:/kenyonj:rw
     - /etc/localtime:/etc/localtime:ro
 
 sonarr:
@@ -106,7 +107,6 @@ pydio:
   volumes_from:
     - data
   volumes:
-    - /home:/host-home
     - /mnt/storage/dockerdata:/dockerdata
     - /mnt/storage/dockerdata/pydio:/config
     - /mnt/storage/dockerdata/pydio:/data
