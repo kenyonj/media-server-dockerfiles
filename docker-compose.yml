@@ -76,6 +76,7 @@ sabnzbd:
 plex:
   image: wernight/plex-media-server:autoupdate
   restart: always
+  user: "root"
   net: "host"
   env_file: .env
   ports:
