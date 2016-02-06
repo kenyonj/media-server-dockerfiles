@@ -107,6 +107,7 @@ pydio:
     - data
   volumes:
     - /home:/host-home
+    - /mnt/storage/dockerdata:/dockerdata
     - /mnt/storage/dockerdata/pydio:/config
     - /mnt/storage/dockerdata/pydio:/data
 
