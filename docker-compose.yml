@@ -53,9 +53,9 @@ headphones:
   build: headphones
   restart: always
   expose:
-    - "8181"
+    - "8282"
   ports:
-    - "8181:8181"
+    - "8282:8181"
   volumes_from:
     - data
   volumes:
