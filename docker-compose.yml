@@ -5,7 +5,7 @@ data:
     - /mnt/storage/tmp:/mnt/tmp:rw
     - /mnt/storage/downloads:/mnt/downloads:rw
     - /media/nas:/mnt/nas:rw
-    - /home/kenyonj:/kenyonj:rw
+    - /home/kenyonj:/mnt/kenyonj:rw
     - /etc/localtime:/etc/localtime:ro
 
 sonarr:
