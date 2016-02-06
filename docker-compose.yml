@@ -4,29 +4,29 @@ data:
   volumes:
     - /mnt/storage/tmp:/mnt/tmp:rw
     - /mnt/storage/downloads:/mnt/downloads:rw
-    - /media/jeff/nas:/mnt/nas:rw
+    - /media/nas:/mnt/nas:rw
     - /etc/localtime:/etc/localtime:ro
 
 sonarr:
   image: tuxeh/sonarr
   restart: always
-  expose: 
+  expose:
     - "8989"
-  ports: 
+  ports:
     - "8989:8989"
   user: "root"
   volumes:
-    - /mnt/storage/downloads:/volumes/completed:rw 
+    - /mnt/storage/downloads:/volumes/completed:rw
     - /mnt/storage/dockerdata/sonarr:/volumes/config:rw
-    - /media/jeff/nas:/volumes/media:rw
+    - /media/nas:/volumes/media:rw
     - /etc/localtime:/etc/localtime:ro
 
 couchpotato:
   build: couchpotato
   restart: always
-  expose: 
+  expose:
     - "5050"
-  ports: 
+  ports:
     - "5050:5050"
   volumes_from:
     - data
@@ -72,3 +72,53 @@ sabnzbd:
     - data
   volumes:
     - /mnt/storage/dockerdata/sabnzbd:/mnt/state:rw
+
+plex:
+  image: wernight/plex-media-server:autoupdate
+  restart: always
+  net: "host"
+  env_file: .env
+  ports:
+    - "32400:32400"
+  volumes_from:
+    - data
+  volumes:
+    - /mnt/storage/dockerdata/plex:/config
+
+plexpy:
+  image: linuxserver/plexpy
+  restart: always
+  env_file: .env
+  ports:
+    - "8181:8181"
+  volumes_from:
+    - data
+  volumes:
+    - /mnt/storage/dockerdata/plexpy:/config:rw
+    - /mnt/storage/dockerdata/plex/Plex\ Media\ Server/Logs:/logs:ro
+
+pydio:
+  image: linuxserver/pydio
+  restart: always
+  env_file: .env
+  ports:
+    - "443:443"
+  volumes_from:
+    - data
+  volumes:
+    - /home:/host-home
+    - /mnt/storage/dockerdata/pydio:/config
+    - /mnt/storage/dockerdata/pydio:/data
+
+requests:
+  image: aptalca/docker-plexrequests
+  restart: always
+  env_file: .env
+  environment:
+    - BRANCH=master
+  ports:
+    - "3000:3000"
+  volumes_from:
+    - data
+  volumes:
+    - /mnt/storage/dockerdata/requests:/config:rw
